@@ -1,12 +1,6 @@
 # Civ6 Codex Companion
 
-Civ6 Codex Companion은 Civilization VI 플레이 중 현재 화면을 캡처해 Codex CLI에 분석을 맡기고, 작은 항상-위 오버레이에 다음 행동 후보와 주의점을 보여 주는 Windows 전용 미리보기 도구입니다.
-
-현재 상태는 alpha/preview입니다. 개인 실험용 보조 앱에 가깝고, 자동 플레이, 세이브 파일 분석, 게임 메모리 읽기, 멀티플레이 최적화, 공식 게임 데이터베이스 조회 기능은 제공하지 않습니다.
-
-## English Summary
-
-Civ6 Codex Companion is an alpha Windows companion app for Civilization VI. It captures the foreground Civ VI window, sends screenshots to the signed-in Codex CLI for analysis, and shows short guidance in a topmost WPF overlay. It is unofficial and not affiliated with Firaxis Games or 2K.
+Civilization VI 플레이 중 현재 화면을 캡처해 Codex CLI에 분석을 맡기고, 작은 항상-위 오버레이에 다음 행동 후보와 주의점을 보여 주는 Windows 전용 미리보기 도구
 
 ## 주요 기능
 
