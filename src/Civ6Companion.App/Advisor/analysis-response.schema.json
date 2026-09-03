@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["screenType","confidence","title","immediateActions","nextSteps","warnings","fiveTurnGoals","needsAnotherScreen","stateUpdate"],
+  "properties": {
+    "screenType": { "enum": ["map","city_production","technology","civic","government","great_person","city_state","diplomacy","trade","citizen_management","religion","other"] },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "title": { "type": "string", "maxLength": 600 },
+    "immediateActions": { "type": "array", "maxItems": 3, "items": { "type": "object", "additionalProperties": false, "required": ["action","reason"], "properties": { "action": {"type":"string","maxLength":600}, "reason": {"type":"string","maxLength":600} } } },
+    "nextSteps": { "$ref": "#/$defs/strings" }, "warnings": { "$ref": "#/$defs/strings" }, "fiveTurnGoals": { "$ref": "#/$defs/strings" },
+    "needsAnotherScreen": { "type": ["string","null"], "maxLength": 600 }, "stateUpdate": { "type": "string", "maxLength": 600 }
+  },
+  "$defs": { "strings": { "type": "array", "items": { "type": "string", "maxLength": 600 } } }
+}

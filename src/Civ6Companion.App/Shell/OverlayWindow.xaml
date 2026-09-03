@@ -1,0 +1,88 @@
+<Window x:Class="Civ6Companion.App.Shell.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="문명 6 Codex 도우미" Width="460" Height="760"
+        MinWidth="460" MaxWidth="460" MinHeight="760" MaxHeight="760"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowActivated="False" ResizeMode="NoResize">
+    <Window.Resources>
+        <DataTemplate x:Key="BulletTemplate">
+            <TextBlock Text="{Binding StringFormat=• {0}}" Foreground="#FFE6ECF5" TextWrapping="Wrap" Margin="0,2,0,0" />
+        </DataTemplate>
+    </Window.Resources>
+    <Border Margin="8" CornerRadius="16" Background="#F21B2130" BorderBrush="#667EA8D8" BorderThickness="1">
+        <Grid Margin="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid MouseLeftButtonDown="DragArea_OnMouseLeftButtonDown">
+                <Grid.ColumnDefinitions><ColumnDefinition /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="{Binding ScreenBadge}" Foreground="#FF75BFFF" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding Title}" Foreground="White" FontSize="20" FontWeight="Bold" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding StatusMessage}" Foreground="#FFBCC8D8" Margin="0,4,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+                <Button Grid.Column="1" Content="×" Command="{Binding HideCommand}" Width="32" Height="32"
+                        Background="Transparent" Foreground="White" BorderThickness="0" FontSize="20" />
+            </Grid>
+
+            <ScrollViewer Grid.Row="1" Margin="0,14,0,12" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="지금 할 일" Foreground="#FFFFD166" FontWeight="Bold" FontSize="15" />
+                    <ItemsControl ItemsSource="{Binding ImmediateActions}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#332D8CFF" CornerRadius="8" Margin="0,5,0,0" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Action}" Foreground="White" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Reason}" Foreground="#FFB8C7DB" Margin="0,3,0,0" TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="다음 단계" Foreground="#FF8FE3A3" FontWeight="Bold" Margin="0,14,0,3" />
+                    <ItemsControl ItemsSource="{Binding NextSteps}" ItemTemplate="{StaticResource BulletTemplate}" />
+                    <TextBlock Text="주의" Foreground="#FFFF8A80" FontWeight="Bold" Margin="0,14,0,3" />
+                    <ItemsControl ItemsSource="{Binding Warnings}" ItemTemplate="{StaticResource BulletTemplate}" />
+                    <TextBlock Text="5턴 목표" Foreground="#FFBDA8FF" FontWeight="Bold" Margin="0,14,0,3" />
+                    <ItemsControl ItemsSource="{Binding FiveTurnGoals}" ItemTemplate="{StaticResource BulletTemplate}" />
+                    <TextBlock Text="{Binding NeedsAnotherScreen, StringFormat=추가 화면: {0}}" Foreground="#FFFFD166" Margin="0,12,0,0" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding RawFallback}" Foreground="#FF98A4B5" Margin="0,8,0,0" TextWrapping="Wrap" />
+                    <ItemsControl ItemsSource="{Binding ChatTranscript}" Margin="0,12,0,0" ItemTemplate="{StaticResource BulletTemplate}" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ChatBox" Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"
+                             AcceptsReturn="True" TextWrapping="Wrap" Height="48"
+                             VerticalScrollBarVisibility="Auto"
+                             PreviewMouseLeftButtonDown="ChatBox_OnPreviewMouseLeftButtonDown"
+                             PreviewKeyDown="ChatBox_OnPreviewKeyDown" Padding="8" />
+                    <Button Grid.Column="1" Content="보내기" Command="{Binding SendChatCommand}"
+                            Width="72" Margin="8,0,0,0" />
+                </Grid>
+                <WrapPanel Grid.Row="1" Margin="0,8,0,0">
+                    <Button Content="다시 분석" Command="{Binding AnalyzeCommand}" Padding="12,6" Margin="0,0,6,0" />
+                    <Button Content="취소" Command="{Binding CancelCommand}" Padding="12,6" Margin="0,0,6,0" />
+                    <Button Content="새 게임" Command="{Binding RequestNewGameCommand}" Padding="12,6" Margin="0,0,6,0" />
+                    <Button Content="종료" Command="{Binding ExitCommand}" Padding="12,6" />
+                </WrapPanel>
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>

@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <PlatformTarget>x64</PlatformTarget>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WgcNativeProject>$(MSBuildThisFileDirectory)..\Civ6Companion.WgcNative\Civ6Companion.WgcNative.vcxproj</WgcNativeProject>
+    <WgcNativeBuild>$(MSBuildThisFileDirectory)..\Civ6Companion.WgcNative\build-native.ps1</WgcNativeBuild>
+    <WgcNativeBuildConfiguration Condition="'$(Configuration)' == 'Debug'">Debug</WgcNativeBuildConfiguration>
+    <WgcNativeBuildConfiguration Condition="'$(Configuration)' == 'Release'">Release</WgcNativeBuildConfiguration>
+    <WgcNativeOutput>$(MSBuildThisFileDirectory)..\Civ6Companion.WgcNative\x64\$(WgcNativeBuildConfiguration)\Civ6Companion.WgcNative.dll</WgcNativeOutput>
+  </PropertyGroup>
+
+  <Target Name="BuildWindowsGraphicsCaptureNative" BeforeTargets="Build">
+    <Error Condition="'$(Configuration)' != 'Debug' and '$(Configuration)' != 'Release'" Text="Unsupported Configuration '$(Configuration)'. WGC native capture supports only Debug and Release." />
+    <Error Condition="'$(WgcNativeBuildConfiguration)' != '$(Configuration)'" Text="WGC native capture configuration mapping is invalid." />
+    <Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;$(WgcNativeBuild)&quot; -Configuration &quot;$(WgcNativeBuildConfiguration)&quot;" />
+    <Copy SourceFiles="$(WgcNativeOutput)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <ItemGroup>
+    <Content Include="Advisor\*-response.schema.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

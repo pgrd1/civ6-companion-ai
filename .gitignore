@@ -1,0 +1,87 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+src/**/[Bb]in/
+src/**/[Oo]bj/
+tests/**/[Bb]in/
+tests/**/[Oo]bj/
+src/Civ6Companion.WgcNative/x64/
+src/Civ6Companion.WgcNative/Civ6Comp.*/
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.obj
+*.idb
+*.tlog
+*.lastbuildstate
+*.recipe
+*.deps.json
+*.runtimeconfig.json
+
+# Test, coverage, and diagnostic output
+TestResults/
+artifacts/
+coverage/
+*.trx
+*.coverage
+*.coveragexml
+*.opencover.xml
+*.cobertura.xml
+*.binlog
+*.dmp
+*.dump
+*.log
+
+# Local SDKs, package caches, and app data mirrors
+.dotnet/
+.dotnet-cli/
+.dotnet-home/
+.bootstrap/
+.appdata/
+.localappdata/
+.nuget-packages/
+.nuget/
+packages/
+
+# Historic publish and scratch output directories
+chatfix/
+diagnostic/
+fastcapture/
+fixed/
+multicapture/
+utf8fix/
+publish/
+out/
+dist/
+Release/
+Debug/
+x64/
+
+# IDE and user-local state
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.rsuser
+*.DotSettings.user
+
+# Agent scratch notes and one-off task reports
+.superpowers/
+task-*-report.md
+task-*-brief.md
+task-*-review.md
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+secrets.*
+auth.json
