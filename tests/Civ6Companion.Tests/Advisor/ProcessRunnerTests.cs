@@ -101,9 +101,21 @@ public sealed class ProcessRunnerTests
         outputResult.StandardError.Length.Should().Be(OneMiB);
     }
 
+    [Fact]
+    public void FindDotnetPath_WhenProjectLocalSdkIsMissing_FindsExecutableOnPath()
+    {
+        using var temp = new TempDirectory();
+        var expectedPath = Path.Combine(temp.Path, "dotnet.exe");
+        File.WriteAllBytes(expectedPath, []);
+
+        var result = FindDotnetPath(temp.Path, temp.Path);
+
+        result.Should().Be(expectedPath);
+    }
+
     private static ProcessRequest CreateRequest(string mode, TimeSpan timeout, string? standardInput, params string[] arguments) =>
         new(
-            FindLocalDotnetPath(),
+            FindDotnetPath(AppContext.BaseDirectory, Environment.GetEnvironmentVariable("PATH")),
             [FindHelperAssemblyPath(), mode, .. arguments],
             AppContext.BaseDirectory,
             standardInput,
@@ -116,9 +128,9 @@ public sealed class ProcessRunnerTests
         return path;
     }
 
-    private static string FindLocalDotnetPath()
+    private static string FindDotnetPath(string startDirectory, string? path)
     {
-        for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
+        for (var directory = new DirectoryInfo(startDirectory); directory is not null; directory = directory.Parent)
         {
             var candidate = Path.Combine(directory.FullName, ".dotnet", "dotnet.exe");
             if (File.Exists(candidate))
@@ -127,7 +139,23 @@ public sealed class ProcessRunnerTests
             }
         }
 
-        throw new DirectoryNotFoundException("The project-local .NET SDK was not found.");
+        foreach (var directory in (path ?? string.Empty).Split(
+                     Path.PathSeparator,
+                     StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            if (!Path.IsPathFullyQualified(directory))
+            {
+                continue;
+            }
+
+            var candidate = Path.Combine(directory, "dotnet.exe");
+            if (File.Exists(candidate))
+            {
+                return Path.GetFullPath(candidate);
+            }
+        }
+
+        throw new DirectoryNotFoundException("A .NET host was not found in the project-local SDK or PATH.");
     }
 
     private static async Task WaitForFileAsync(string path, TimeSpan timeout)
