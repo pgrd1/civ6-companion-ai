@@ -59,7 +59,7 @@ dotnet run --project src/Civ6Companion.App/Civ6Companion.App.csproj -c Release -
 
 `Settings`와 `State` 데이터는 암호화되지 않은 로컬 JSON 파일입니다. 스크린샷은 기본 설정에서 작업이 끝나면 best-effort 방식으로 삭제됩니다. `CodexWork`의 결과 파일도 작업 후 best-effort 방식으로 삭제되지만, 앱이나 Codex CLI가 비정상 종료되면 남을 수 있습니다. `KeepScreenshots`를 켜면 캡처 파일이 남을 수 있습니다. 로컬 데이터를 지우려면 앱을 종료한 뒤 `%LOCALAPPDATA%\Civ6CodexCompanion` 폴더를 삭제하세요.
 
-## 현재 제한
+## 제한
 
 - Windows 전용입니다.
 - Civilization VI 창을 찾지 못하면 캡처할 수 없습니다.
@@ -79,7 +79,7 @@ dotnet run --project src/Civ6Companion.App/Civ6Companion.App.csproj -c Release -
 
 ## 비공식 프로젝트 고지
 
-Civ6 Codex Companion은 비공식 팬/개인 프로젝트입니다. Civilization VI, Sid Meier's Civilization, Firaxis Games, 2K 및 관련 상표는 각 소유자의 자산입니다. 이 저장소는 Firaxis Games 또는 2K와 제휴, 승인, 후원 관계가 없습니다.
+Civ6 Codex Companion은 비공식 팬/개인 프로젝트입니다. Civilization VI, Sid Meier's Civilization, Firaxis Games, 2K 및 관련 상표는 각 소유자의 자산입니다. 이 저장소는 Firaxis Games 또는 2K와 제휴, 승인, 후원 관계가 없습니다. 사용시 발생하는 모든 행동에 대해 책임지지 않습니다.
 
 ## 라이선스
 
