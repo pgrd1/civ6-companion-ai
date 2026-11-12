@@ -15,7 +15,7 @@
     <ProjectReference Include="..\..\src\Civ6Companion.App\Civ6Companion.App.csproj" />
     <ProjectReference Include="..\Civ6Companion.ProcessRunnerHelper\Civ6Companion.ProcessRunnerHelper.csproj" />
     <None Include="..\..\src\Civ6Companion.WgcNative\x64\$(Configuration)\Civ6Companion.WgcNative.dll" Link="Civ6Companion.WgcNative.dll" CopyToOutputDirectory="PreserveNewest" />
-    <PackageReference Include="coverlet.collector" Version="10.0.1">
+    <PackageReference Include="coverlet.collector" Version="10.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
